@@ -25,7 +25,7 @@ You need to sideload it onto your Quest using a USB cable.
 2. Follow the SideQuest setup guide to enable Developer Mode on your headset
 3. Connect your headset with a USB cable — accept the "Allow USB Debugging" prompt inside the headset
 4. In SideQuest, click the **Install APK from folder** button (box with an arrow icon, top-right)
-5. Browse to `Server/PlasmaVR.apk` and open it — SideQuest will install it automatically
+5. Browse to `PlasmaVR.apk` and open it — SideQuest will install it automatically
 
 ### Linux
 
@@ -33,7 +33,7 @@ You need to sideload it onto your Quest using a USB cable.
 2. Follow the SideQuest setup guide to enable Developer Mode on your headset
 3. Connect your headset with a USB cable — accept the "Allow USB Debugging" prompt inside the headset
 4. In SideQuest, click the **Install APK from folder** button (box with an arrow icon, top-right)
-5. Browse to `Server/PlasmaVR.apk` and open it — SideQuest will install it automatically
+5. Browse to `PlasmaVR.apk` and open it — SideQuest will install it automatically
 
 ---
 
