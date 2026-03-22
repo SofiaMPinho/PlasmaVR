@@ -11377,6 +11377,11 @@ MonoBehaviour:
   filePrefix: PlasmaVR_
   imageFormat: 1
   jpgQuality: 85
+  sourceCamera: {fileID: 2779669268269126898}
+  captureWidth: 1600
+  captureHeight: 900
+  perspectiveMode: 0
+  allowLegacyFallback: 1
   screenshotAction: {fileID: -8974732922194531117, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   screenshotIndicator: {fileID: 0}
   indicatorAnchorX: 0.5

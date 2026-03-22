@@ -16,10 +16,29 @@ public class ScreenshotCapture : MonoBehaviour
         Png
     }
 
+    private enum PerspectiveMode
+    {
+        Center,
+        LeftEye,
+        RightEye
+    }
+
     [SerializeField] private DatasetServerClient serverClient;
     [SerializeField] private string filePrefix = "PlasmaVR_";
     [SerializeField] private ImageFormat imageFormat = ImageFormat.Jpg;
     [SerializeField, Range(10, 100)] private int jpgQuality = 85;
+
+    [Header("Capture")]
+    [SerializeField, Tooltip("Optional camera used as capture source. If null, Camera.main is used.")]
+    private Camera sourceCamera;
+    [SerializeField, Tooltip("Requested output width in pixels")]
+    private int captureWidth = 1280;
+    [SerializeField, Tooltip("Requested output height in pixels")]
+    private int captureHeight = 720;
+    [SerializeField, Tooltip("Eye projection used for screenshot framing")]
+    private PerspectiveMode perspectiveMode = PerspectiveMode.Center;
+    [SerializeField, Tooltip("Fallback to ScreenCapture API if camera-based capture fails")]
+    private bool allowLegacyFallback = true;
 
     [Header("Input")]
     [SerializeField, Tooltip("Input action to trigger a screenshot")]
@@ -107,7 +126,14 @@ public class ScreenshotCapture : MonoBehaviour
         isBusy = true;
         yield return new WaitForEndOfFrame();
 
-        Texture2D tex = ScreenCapture.CaptureScreenshotAsTexture();
+        Texture2D tex = CaptureFromCurrentView();
+
+        if (tex == null && allowLegacyFallback)
+        {
+            Debug.LogWarning("[Screenshot] Camera capture failed. Falling back to ScreenCapture API.");
+            tex = ScreenCapture.CaptureScreenshotAsTexture();
+        }
+
         if (tex == null)
         {
             Debug.LogWarning("[Screenshot] Capture failed: Texture2D is null.");
@@ -161,6 +187,81 @@ public class ScreenshotCapture : MonoBehaviour
         }
 
         isBusy = false;
+    }
+
+    private Texture2D CaptureFromCurrentView()
+    {
+        Camera src = sourceCamera != null ? sourceCamera : Camera.main;
+        if (src == null)
+        {
+            Debug.LogWarning("[Screenshot] No source camera found for capture.");
+            return null;
+        }
+
+        int width = Mathf.Max(64, captureWidth);
+        int height = Mathf.Max(64, captureHeight);
+
+        var captureGO = new GameObject("_ScreenshotCaptureCamera");
+        captureGO.hideFlags = HideFlags.HideAndDontSave;
+
+        var captureCam = captureGO.AddComponent<Camera>();
+        captureCam.CopyFrom(src);
+        captureCam.transform.SetPositionAndRotation(src.transform.position, src.transform.rotation);
+        captureCam.stereoTargetEye = StereoTargetEyeMask.None;
+        captureCam.targetDisplay = 0;
+
+        var rt = RenderTexture.GetTemporary(width, height, 24, RenderTextureFormat.ARGB32);
+        rt.name = "_ScreenshotRT";
+        captureCam.targetTexture = rt;
+
+        // In XR, choose an eye projection for a predictable screenshot perspective.
+        if (src.stereoEnabled)
+        {
+            switch (perspectiveMode)
+            {
+                case PerspectiveMode.LeftEye:
+                    captureCam.projectionMatrix = src.GetStereoProjectionMatrix(Camera.StereoscopicEye.Left);
+                    break;
+                case PerspectiveMode.RightEye:
+                    captureCam.projectionMatrix = src.GetStereoProjectionMatrix(Camera.StereoscopicEye.Right);
+                    break;
+                case PerspectiveMode.Center:
+                default:
+                    captureCam.ResetProjectionMatrix();
+                    break;
+            }
+        }
+
+        var previousActive = RenderTexture.active;
+        Texture2D tex = null;
+
+        try
+        {
+            captureCam.Render();
+            RenderTexture.active = rt;
+
+            tex = new Texture2D(width, height, TextureFormat.RGB24, false);
+            tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+            tex.Apply(false, false);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"[Screenshot] Camera capture error: {ex.Message}");
+            if (tex != null)
+            {
+                Destroy(tex);
+                tex = null;
+            }
+        }
+        finally
+        {
+            RenderTexture.active = previousActive;
+            captureCam.targetTexture = null;
+            RenderTexture.ReleaseTemporary(rt);
+            Destroy(captureGO);
+        }
+
+        return tex;
     }
 
     private IEnumerator ShowIndicatorCoroutine()
