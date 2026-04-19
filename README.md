@@ -114,26 +114,26 @@ All playback controls are in the **Visualisation Menu** (press X to open):
 
 The **Visualisation Menu** contains three independent checkbox toggles (UI Press each one):
 - **Particles**: Coloured point clouds showing velocity and flow structure
-- **Isosurfaces**: Scalar field contours (density, pressure, temperature)
+- **Isosurfaces**: Scalar field contours
 - **Streamlines**: Vector field flow trajectories
 
-You can mix and match visualisations — toggle multiple types simultaneously to compare relationships between different physical quantities.
+You can mix and match visualisations.
 
-### Clipping and Cross-Sections
+### Clipping
 
 Press **Y button** on your left controller to open the **Slice Menu**, a free-floating panel for spatial clipping.
 
 The Slice Menu provides:
 
-1. **Radial axis selector** — Four buttons in a radial layout (X, Y, Z, None). UI Press one to select which axis to clip, or disable clipping entirely.
-2. **Grid Mode toggle** — UI Press to display coordinate grid values on the slice plane, helping you position it precisely.
+1. **Radial axis selector** — Four buttons in a radial layout (X, Y, Z, None). **UI Press** one to select which axis to clip, or disable clipping entirely.
+2. **Grid Mode toggle** — **UI Press** to display coordinate grid values on the slice plane, helping you position it precisely.
 3. **Clipping sliders** — A pair of min/max boundary sliders for the selected axis. **Grab** each slider handle and drag to define the clipping region.
 
-**Interaction pattern**: UI Press an axis button → Grab and position the min/max sliders → Visualisation updates in real-time. Reposition the entire Slice Menu by grabbing and moving it around your workspace.
+**Interaction pattern**: **UI Press** an axis button → **Grab** and position the min/max sliders → Visualisation updates in real-time.
 
-### Rotating the Volume
+### Rotating the Visualisation
 
-To reorient your view, look for the **rotation gear** at the base of the visualisation. **Grab** it with your grip button and physically twist your hand to rotate the entire simulation volume through 3D space.
+Look for the **rotation gear** at the base of the visualisation. Point with the raycast and then **Grab** it with your grip button and pull to rotate the visualisation.
 
 ### Taking Screenshots
 
