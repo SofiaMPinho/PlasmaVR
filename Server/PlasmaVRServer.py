@@ -2,7 +2,7 @@
 """
 PlasmaVR Data Server
 ====================
-HTTP server that streams simulation datasets to the PlasmaVR Quest app.
+HTTP server that serves datasets for upload to the PlasmaVR Quest app.
 See SERVER_README.md for setup and usage instructions.
 """
 

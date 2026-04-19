@@ -45,10 +45,6 @@ After installing, put on your headset and:
 2. In the top-right filter, select **Unknown Sources**
 3. Find and launch **PlasmaVR**
 
----
-
-## Using the App
-
 ### Without a Server (Offline)
 
 The app works on its own as long as datasets have already been downloaded and cached onto the headset.  
@@ -71,3 +67,74 @@ To load new datasets that are not yet cached on the headset, the **PlasmaVR Serv
 5. In the VR app, open the dataset menu and the server will appear in the list — tap it to connect and browse its datasets
 
 For more details on server setup and dataset folder structure, see `Server/SERVER_README.md`.
+
+---
+
+## Basic Tutorial
+
+### Understanding Controllers: UI Press vs. Grab
+
+The app uses two fundamental interaction types from the Unity VR Template:
+
+**UI Press** — Interacting with Canvas UI elements (buttons, toggles, sliders):
+- Target: 2D Canvas elements positioned in 3D space
+- Input: Ray Interactor (point a laser at the element) or Poke Interactor (physically push with your finger)
+- Button: Trigger button, or physical contact for poke
+- Result: Element stays in place and fires a UI event (like OnClick); no object movement
+- Example: Tapping a button in the Visualisation Menu or pressing an axis button in the Slice Menu
+
+**Grab** — Picking up and manipulating 3D objects:
+- Target: GameObjects with Collider and Rigidbody components
+- Input: Direct Interactor (hand collides with object) or Ray Interactor (distance grab)
+- Button: Grip button
+- Result: Object attaches to your hand and moves through 3D space; respects physics and gravity; can be thrown
+- Example: Grabbing a slider handle to scrub through frames, or grabbing the rotation gear to reorient the volume
+
+When you look at your handheld controller for a moment, labels appear on the buttons showing which interactions are available from that controller.
+
+### Selecting and Loading a Dataset
+
+Press **X button** on your left controller to open the **Visualisation Menu**. Inside this menu, press the **[Open Dataset Menu]** button to summon the Dataset Selection panel.
+
+The Dataset Menu is a free-floating panel (can be positioned anywhere in your workspace) showing a unified scrollable list:
+- **Cached datasets** (stored on your headset): Listed first with **[Load]** and **[Trash]** buttons. Tap **[Load]** to begin playback immediately.
+- **Server datasets** (from a running PlasmaVR Server): Listed second with **[Download]** buttons. Tap **[Download]** to download and cache the dataset, then begin playback.
+
+Both cached and server datasets can coexist for the same simulation — deleting a cached copy doesn't remove the server listing, so you can always re-download. Once selected, playback begins and the Dataset Menu returns to its last position in your workspace.
+
+### Basic Playback Controls
+
+All playback controls are in the **Visualisation Menu** (press X to open):
+
+- **Play/Pause button**: UI Press on the button to toggle playback state
+- **Scrub slider**: **Grab** the slider handle with your grip button and drag left/right to seek to any frame. The visualisation updates as you drag.
+- **FPS dropdown**: UI Press to select your preferred temporal resolution
+
+### Toggling Visualisations
+
+The **Visualisation Menu** contains three independent checkbox toggles (UI Press each one):
+- **Particles**: Coloured point clouds showing velocity and flow structure
+- **Isosurfaces**: Scalar field contours (density, pressure, temperature)
+- **Streamlines**: Vector field flow trajectories
+
+You can mix and match visualisations — toggle multiple types simultaneously to compare relationships between different physical quantities.
+
+### Clipping and Cross-Sections
+
+Press **Y button** on your left controller to open the **Slice Menu**, a free-floating panel for spatial clipping.
+
+The Slice Menu provides:
+
+1. **Radial axis selector** — Four buttons in a radial layout (X, Y, Z, None). UI Press one to select which axis to clip, or disable clipping entirely.
+2. **Grid Mode toggle** — UI Press to display coordinate grid values on the slice plane, helping you position it precisely.
+3. **Clipping sliders** — A pair of min/max boundary sliders for the selected axis. **Grab** each slider handle and drag to define the clipping region.
+
+**Interaction pattern**: UI Press an axis button → Grab and position the min/max sliders → Visualisation updates in real-time. Reposition the entire Slice Menu by grabbing and moving it around your workspace.
+
+### Rotating the Volume
+
+To reorient your view, look for the **rotation gear** at the base of the visualisation. **Grab** it with your grip button and physically twist your hand to rotate the entire simulation volume through 3D space.
+
+### Taking Screenshots
+
+While viewing your simulation, press **A button** to capture a high-resolution screenshot. Screenshots are saved locally for your session.
