@@ -47,12 +47,12 @@ After installing, put on your headset and:
 
 ### Without a Server (Offline)
 
-The app works on its own as long as datasets have already been downloaded and cached onto the headset.  
-Simply launch the app, select a cached dataset from the menu, and press Play.
+The app works on its own as long as datasets have already been downloaded and saved onto the headset.  
+Simply launch the app, select a saved dataset from the menu, and press Play.
 
 ### With the Server (Adding New Datasets)
 
-To load new datasets that are not yet cached on the headset, the **PlasmaVR Server** must be running on a computer connected to the **same WiFi network** as the headset.
+To load new datasets that are not yet saved on the headset, the **PlasmaVR Server** must be running on a computer connected to the **same WiFi network** as the headset.
 
 1. Open a terminal in the `Server/` folder
 2. Install dependencies (first time only):
@@ -78,9 +78,9 @@ The app uses two fundamental interaction types from the Unity VR Template:
 
 **UI Press** — Interacting with Canvas UI elements (buttons, toggles, sliders):
 - Target: 2D Canvas elements positioned in 3D space
-- Input: Ray Interactor (point a laser at the element) or Poke Interactor (physically push with your finger)
+- Input: Ray Interactor (point a laser at the element)
 - Button: Trigger button, or physical contact for poke
-- Result: Element stays in place and fires a UI event (like OnClick); no object movement
+- Result: Element stays in place and fires a UI event; no object movement
 - Example: Tapping a button in the Visualisation Menu or pressing an axis button in the Slice Menu
 
 **Grab** — Picking up and manipulating 3D objects:
@@ -97,10 +97,10 @@ When you look at your handheld controller for a moment, labels appear on the but
 Press **X button** on your left controller to open the **Visualisation Menu**. Inside this menu, press the **[Open Dataset Menu]** button to summon the Dataset Selection panel.
 
 The Dataset Menu is a free-floating panel (can be positioned anywhere in your workspace) showing a unified scrollable list:
-- **Cached datasets** (stored on your headset): Listed first with **[Load]** and **[Trash]** buttons. Tap **[Load]** to begin playback immediately.
+- **Saved datasets** (stored on your headset): Listed first with **[Load]** and **[Trash]** buttons. Tap **[Load]** to begin playback immediately.
 - **Server datasets** (from a running PlasmaVR Server): Listed second with **[Download]** buttons. Tap **[Download]** to download and cache the dataset, then begin playback.
 
-Both cached and server datasets can coexist for the same simulation — deleting a cached copy doesn't remove the server listing, so you can always re-download. Once selected, playback begins and the Dataset Menu returns to its last position in your workspace.
+Both saved and server datasets can coexist for the same simulation — deleting a saved copy doesn't remove the server listing, so you can always re-download. Once selected, playback begins and the Dataset Menu returns to its last position in your workspace.
 
 ### Basic Playback Controls
 
