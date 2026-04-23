@@ -129,7 +129,7 @@ The Slice Menu provides:
 2. **Grid Mode toggle** — **UI Press** to display coordinate grid values on the slice plane, helping you position it precisely.
 3. **Clipping sliders** — A pair of min/max boundary sliders for the selected axis. **Grab** each slider handle and drag to define the clipping region.
 
-**Interaction pattern**: **UI Press** an axis button → **Grab** and position the min/max sliders → Visualisation updates in real-time.
+**Interaction pattern**: **UI Press** an axis button → **Grab** and position the min/max sliders
 
 ### Rotating the Visualisation
 
@@ -137,4 +137,4 @@ Look for the **rotation gear** at the base of the visualisation. Point with the 
 
 ### Taking Screenshots
 
-While viewing your simulation, press **A button** to capture a high-resolution screenshot. Screenshots are saved locally for your session.
+While viewing your simulation, press **A button** to capture a screenshot. Screenshots are saved through a server connection.
