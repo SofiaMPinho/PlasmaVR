@@ -108,7 +108,6 @@ The clipping system writes box transforms to shader globals so all renderers are
 | Script | Role |
 |--------|------|
 | `GridCreator.cs` | Procedurally generates a 3D axis-aligned reference grid mesh with tick marks and value labels. Reads axis metadata from `info.txt` via `SimulationController`. |
-| `LabelBillboard.cs` | Rotates a world-space GameObject each frame so it always faces the main camera. Used on axis labels created by `GridCreator`. |
 | `ScreenshotCapture.cs` | Captures the framebuffer as a PNG and POSTs it to `DatasetServerClient.UploadScreenshot()`. Triggered by a controller button (Input System action). |
 | `VRKeyboardTrigger.cs` | Opens the Meta Quest system keyboard when a `TMP_InputField` is tapped with a controller. Syncs keyboard output back to the field each frame. |
 
